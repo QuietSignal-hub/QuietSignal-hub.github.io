@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jayesh Patil | Analytics for Operations & Supply Chain</title>
+<meta name="description" content="Jayesh Patil: analytics professional with an MS in Analytics (Northeastern), an MBA in Operations & Supply Chain Management, and a Lean Six Sigma Green Belt. Forecasting, BI dashboards, SQL, and process improvement.">
+<meta property="og:title" content="Jayesh Patil | Analytics for Operations & Supply Chain">
+<meta property="og:description" content="Forecasting, BI dashboards, SQL data modeling, and process improvement for operations and supply chain teams.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F4F6F9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1424" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!--
+  ===================== HOW TO UPDATE THIS SITE =====================
+  1. Headshot:      add  images/headshot.jpg   (square, at least 600x600)
+  2. Screenshots:   add  images/sf-forecast.png, images/crm-powerbi.png,
+                    images/pharmacy-schema.png, images/suez-routes.png
+                    (16:10 works best)
+     Each one appears automatically once the file exists; until then a
+     clean placeholder shows.
+  3. Resume:        add  resume.pdf  next to this file.
+  4. Contact form:  create a free form at formspree.io, then paste your
+                    form ID into FORM_ENDPOINT near the bottom of this file.
+                    Until then, the form opens the visitor's email app.
+  5. Email:         change it in one place: CONTACT_EMAIL near the bottom,
+                    plus the visible links marked  data-email.
+  ===================================================================
+-->
+
+<style>
+:root {
+  --bg: #F4F6F9;
+  --surface: #FFFFFF;
+  --ink: #12213A;
+  --muted: #56637A;
+  --line: #D9DFE8;
+  --accent: #1E3F8A;
+  --accent-soft: #E3EAF7;
+  --accent-ink: #FFFFFF;
+  --route: #B57A12;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --wrap: 1080px;
+  --radius-lg: 14px;
+  --radius-sm: 6px;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1424; --surface: #111E33; --ink: #E5EBF4; --muted: #93A1B8;
+    --line: #22324D; --accent: #8FB0F0; --accent-soft: #1A2B49; --accent-ink: #0B1424;
+    --route: #E3A93B; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1424; --surface: #111E33; --ink: #E5EBF4; --muted: #93A1B8;
+  --line: #22324D; --accent: #8FB0F0; --accent-soft: #1A2B49; --accent-ink: #0B1424;
+  --route: #E3A93B; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 72px); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .25s ease, color .25s ease;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--route); outline-offset: 3px; border-radius: 4px; }
+.wrap { width: min(var(--wrap), 100% - 40px); margin-inline: auto; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--accent); color: var(--accent-ink); padding: 8px 14px; border-radius: var(--radius-sm); z-index: 100; }
+.skip:focus { left: 12px; }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s ease;
+}
+.nav.scrolled { border-bottom-color: var(--line); }
+.nav-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+.brand { font-family: var(--display); font-weight: 750; font-stretch: 112%; font-size: 1.05rem; color: var(--ink); text-decoration: none; margin-right: auto; letter-spacing: -0.01em; }
+.nav-links { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: .95rem; font-weight: 500; }
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.icon-btn {
+  width: 40px; height: 40px; display: grid; place-items: center;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  border-radius: 999px; cursor: pointer;
+}
+.icon-btn svg { width: 18px; height: 18px; }
+.theme-sun { display: none; }
+:root[data-theme="dark"] .theme-sun { display: block; }
+:root[data-theme="dark"] .theme-moon { display: none; }
+.menu-btn { display: none; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 .95rem/1 var(--body);
+  padding: 13px 20px; border-radius: 999px;
+  text-decoration: none; border: 1.5px solid var(--accent); cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, transform .15s ease;
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--accent); }
+.btn-ghost:hover { background: var(--accent-soft); }
+.btn svg { width: 16px; height: 16px; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 72px 0 0; }
+.hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 800; font-stretch: 120%;
+  font-size: clamp(2.8rem, 7.5vw, 5.4rem);
+  line-height: .95; letter-spacing: -0.035em;
+  margin: 0 0 24px;
+}
+.hero-lede { font-size: clamp(1.2rem, 2.2vw, 1.5rem); line-height: 1.4; max-width: 30ch; margin: 0 0 16px; font-weight: 500; }
+.hero-sub { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.portrait {
+  width: clamp(180px, 22vw, 260px); aspect-ratio: 1; border-radius: 50%;
+  background: var(--accent-soft); border: 1px solid var(--line);
+  display: grid; place-items: center; overflow: hidden; position: relative;
+}
+.portrait span { font-family: var(--display); font-weight: 800; font-stretch: 125%; font-size: clamp(3rem, 6vw, 4.6rem); color: var(--accent); letter-spacing: -0.04em; }
+.portrait img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+
+/* The route: the one orchestrated moment on the page */
+.route { margin-top: 56px; position: relative; }
+.route svg { width: 100%; height: auto; overflow: visible; }
+.route .lane { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 2 8; stroke-linecap: round; }
+.route .path { fill: none; stroke: var(--route); stroke-width: 2.5; stroke-linecap: round; }
+.route .port { fill: var(--surface); stroke: var(--route); stroke-width: 2.5; }
+.route .city { font-family: var(--display); font-weight: 700; font-stretch: 110%; font-size: 17px; fill: var(--ink); }
+.route .note { font-family: var(--body); font-size: 13px; fill: var(--muted); }
+.route .stop { fill: var(--route); }
+.route .stop-label { font-family: var(--body); font-size: 12.5px; fill: var(--muted); }
+.js .route .path { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); }
+.js .route.go .path { animation: draw 2.4s cubic-bezier(.6,.05,.3,1) forwards .2s; }
+.js .route .fade { opacity: 0; }
+.js .route.go .fade { animation: appear .5s ease forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes appear { to { opacity: 1; } }
+
+/* ---------- Sections ---------- */
+section { padding: 104px 0 0; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; border-bottom: 2px solid var(--ink); padding-bottom: 14px; }
+.section-head h2 {
+  font-family: var(--display); font-weight: 750; font-stretch: 115%;
+  font-size: clamp(1.8rem, 3.6vw, 2.5rem); letter-spacing: -0.025em; line-height: 1.05; margin: 0;
+}
+.section-head p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+/* Reveal on scroll (moderate, respects reduced motion) */
+.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* ---------- About ---------- */
+.about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; }
+.about-text p { margin: 0 0 18px; max-width: 62ch; }
+.about-text p:first-child { font-size: 1.2rem; line-height: 1.5; }
+.facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.facts li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.facts dt, .facts .k { color: var(--muted); }
+
+/* ---------- Experience timeline ---------- */
+.timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: var(--line); }
+.job { position: relative; padding: 0 0 48px 44px; }
+.job:last-child { padding-bottom: 0; }
+.job::before { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
+.job-head { display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; align-items: baseline; }
+.job h3 { font-family: var(--display); font-weight: 700; font-stretch: 108%; font-size: 1.35rem; margin: 0; letter-spacing: -0.01em; }
+.job-when { color: var(--muted); font-size: .92rem; font-variant-numeric: tabular-nums; }
+.job-role { margin: 2px 0 14px; color: var(--accent); font-weight: 600; }
+.job ul { margin: 0; padding-left: 20px; max-width: 72ch; list-style: disc; }
+.job li { margin-bottom: 8px; }
+.job li::marker { color: var(--muted); }
+.job-fig { margin-top: 18px; max-width: 520px; }
+
+/* ---------- Projects ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.chip {
+  font: 500 .92rem/1 var(--body); padding: 10px 16px; border-radius: 999px;
+  border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease, color .15s ease;
+}
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.filter-status { color: var(--muted); font-size: .9rem; margin: 0 0 28px; min-height: 1.4em; }
+
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+.project {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  overflow: hidden; display: flex; flex-direction: column;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.project:hover { border-color: var(--accent); transform: translateY(-2px); }
+.project[hidden] { display: none; }
+.project.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.1fr 1fr; }
+.project-body { padding: 24px 24px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.project-meta { margin: 0; color: var(--muted); font-size: .88rem; }
+.project h3 { font-family: var(--display); font-weight: 700; font-stretch: 105%; font-size: 1.28rem; line-height: 1.2; margin: 0; letter-spacing: -0.01em; }
+.project .summary { margin: 0; }
+.metric { margin: 0; padding: 12px 14px; background: var(--accent-soft); border-radius: var(--radius-sm); font-size: .95rem; }
+.metric strong { font-family: var(--display); font-stretch: 110%; font-weight: 750; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.tools { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; padding: 0; font-size: .86rem; color: var(--muted); }
+.tools li::before { content: "#"; color: var(--route); margin-right: 2px; }
+.team-note { margin: 0; font-size: .88rem; color: var(--muted); border-left: 3px solid var(--route); padding-left: 10px; }
+
+details { border-top: 1px solid var(--line); padding-top: 12px; }
+summary { cursor: pointer; font-weight: 600; color: var(--accent); list-style: none; display: inline-flex; align-items: center; gap: 8px; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; display: inline-grid; place-items: center; width: 20px; height: 20px; border: 1.5px solid currentColor; border-radius: 50%; font-size: 14px; line-height: 1; transition: transform .2s ease; }
+details[open] summary::before { content: "\2212"; }
+details ul { margin: 12px 0 0; padding-left: 20px; font-size: .95rem; }
+details li { margin-bottom: 6px; }
+
+/* Screenshot frames: placeholder until the image file exists */
+.shot { margin: 0; background: var(--accent-soft); position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--line); }
+.project.featured .shot { aspect-ratio: auto; min-height: 100%; border-bottom: 0; border-right: 1px solid var(--line); }
+.shot svg.ph { position: absolute; inset: 0; width: 100%; height: 100%; }
+.shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.shot figcaption { position: absolute; left: 12px; bottom: 10px; font-size: .8rem; color: var(--muted); background: var(--surface); padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); }
+.job-fig.shot { border: 1px solid var(--line); border-radius: var(--radius-lg); }
+.ph .bar { fill: var(--accent); opacity: .22; }
+.ph .bar.hi { opacity: .55; }
+.ph .ln { fill: none; stroke: var(--accent); stroke-width: 2.5; opacity: .7; }
+.ph .ln2 { fill: none; stroke: var(--route); stroke-width: 2; stroke-dasharray: 5 5; }
+.ph .grid-l { stroke: var(--line); stroke-width: 1; }
+.ph .card { fill: var(--surface); }
+
+/* ---------- Skills ---------- */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 36px 40px; }
+.skill-group h3 { font-family: var(--display); font-weight: 700; font-stretch: 108%; font-size: 1.1rem; margin: 0 0 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.skill-group ul { list-style: none; margin: 0; padding: 0; }
+.skill-group li { padding: 5px 0; }
+.skill-group li small { color: var(--muted); font-size: .85rem; }
+
+/* ---------- Education ---------- */
+.edu-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.edu { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.edu h3 { font-family: var(--display); font-weight: 700; font-stretch: 108%; font-size: 1.2rem; margin: 0; }
+.edu p { margin: 0; color: var(--muted); }
+.edu .when { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- Contact ---------- */
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; }
+.contact-intro p { margin: 0 0 18px; max-width: 44ch; }
+.contact-links { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; }
+.contact-links a { font-weight: 600; }
+form { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 28px; }
+label { display: grid; gap: 6px; font-weight: 600; font-size: .92rem; }
+input, textarea {
+  font: 400 1rem/1.5 var(--body); color: var(--ink); background: var(--bg);
+  border: 1.5px solid var(--line); border-radius: var(--radius-sm); padding: 11px 13px; width: 100%;
+}
+input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+textarea { min-height: 140px; resize: vertical; }
+.form-status { margin: 0; font-size: .92rem; min-height: 1.4em; }
+.form-status.ok { color: var(--accent); }
+.form-status.err { color: #B4372C; }
+:root[data-theme="dark"] .form-status.err { color: #F08A80; }
+.hp { position: absolute; left: -5000px; }
+
+footer { margin-top: 120px; padding: 28px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 20px 16px; }
+  .nav-links.open { display: flex; }
+  .nav-links a { display: block; padding: 12px 0; font-size: 1.05rem; }
+  .menu-btn { display: grid; }
+  .hero { padding-top: 40px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+  .portrait { order: -1; width: 128px; }
+  .portrait span { font-size: 2.6rem; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+  .project.featured { grid-template-columns: 1fr; }
+  .project.featured .shot { aspect-ratio: 16 / 10; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  section { padding-top: 80px; }
+  .route .city { font-size: 46px; }
+  .route .note, .route .stop-label { display: none; }
+  .route .path, .route .port { stroke-width: 6; }
+  .route .lane { stroke-width: 4; stroke-dasharray: 4 16; }
+  .route .port { r: 16px; }
+  .route .stop { r: 10px; }
+  .route .city.start { transform: translateY(16px); }
+  .route .city.end { transform: translateY(28px); }
+}
+@media (max-width: 520px) {
+  .edu { grid-template-columns: 1fr; }
+  .edu .when { text-align: left; }
+  .facts li { grid-template-columns: 1fr; gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .reveal { opacity: 1; transform: none; }
+  .js .route .path { stroke-dashoffset: 0; }
+  .js .route .fade { opacity: 1; }
+}
+@media print {
+  .nav, .hero-cta, .filters, form, .route { display: none; }
+  details { display: block; } details > ul { display: block; }
+}
+</style>
+<script>
+  // Apply saved theme before paint to avoid a flash
+  document.documentElement.classList.add('js');
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">Jayesh Patil</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+      <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <h1>Jayesh Patil</h1>
+          <p class="hero-lede">I turn operations and supply chain data into forecasts, dashboards, and decisions people can act on.</p>
+          <p class="hero-sub">MS in Analytics from Northeastern University, MBA in Operations &amp; Supply Chain Management, and a Lean Six Sigma Green Belt. I work in Power BI, Tableau, SQL, Python, and R. Based in Boston.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">View projects</a>
+            <a class="btn btn-ghost" href="resume.pdf" download="Jayesh_Patil_Resume.pdf">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+              Download resume
+            </a>
+          </div>
+        </div>
+        <div class="portrait" data-img="images/headshot.jpg" data-alt="Portrait of Jayesh Patil">
+          <span aria-hidden="true">JP</span>
+        </div>
+      </div>
+
+      <!-- Career route: Pune to Boston. Each stop is a real milestone. -->
+      <div class="route" id="route" aria-label="Career route from Pune, India to Boston, Massachusetts" role="img">
+        <svg viewBox="0 0 1080 170" preserveAspectRatio="xMidYMid meet">
+          <path class="lane" d="M40 120 C 260 20, 420 150, 560 85 S 860 20, 1040 70"/>
+          <path class="path" id="route-path" d="M40 120 C 260 20, 420 150, 560 85 S 860 20, 1040 70"/>
+          <g class="fade" style="animation-delay:.2s">
+            <circle class="port" cx="40" cy="120" r="9"/>
+            <text class="city start" x="24" y="162" text-anchor="start">Pune</text>
+          </g>
+          <g class="fade" style="animation-delay:.9s">
+            <circle class="stop" cx="300" cy="74" r="5"/>
+            <text class="stop-label" x="300" y="56" text-anchor="middle">Logistics analytics, 2022</text>
+          </g>
+          <g class="fade" style="animation-delay:1.4s">
+            <circle class="stop" cx="560" cy="85" r="5"/>
+            <text class="stop-label" x="560" y="117" text-anchor="middle">MBA, Operations &amp; SCM, 2023</text>
+          </g>
+          <g class="fade" style="animation-delay:1.9s">
+            <circle class="stop" cx="830" cy="44" r="5"/>
+            <text class="stop-label" x="830" y="26" text-anchor="middle">Analytics internship, 2026</text>
+          </g>
+          <g class="fade" style="animation-delay:2.5s">
+            <circle class="port" cx="1040" cy="70" r="9"/>
+            <text class="city end" x="1040" y="106" text-anchor="end">Boston</text>
+            <text class="note" x="1040" y="126" text-anchor="end">MS Analytics, 2026</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="section-head reveal"><h2 id="about-h">About</h2></div>
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p>I started in operations and supply chain, then went deep on statistics and modeling. Most of my work sits between the two: taking messy operational data, getting it right, and turning it into something a team can plan around.</p>
+          <p>That has meant forecasting daily demand for staffing decisions, mapping alternate shipping routes when a canal becomes a bottleneck, building a SQL data warehouse so reporting stops double-counting, and segmenting 24,000+ grant recipients so an outreach team knows where to start.</p>
+          <p>I care about the step most people skip: checking the data before trusting the result. On more than one project the most useful thing I found was a bug in the data, not a pattern in it.</p>
+        </div>
+        <ul class="facts">
+          <li><span class="k">Focus</span><span>Operations analytics, BI and reporting, forecasting</span></li>
+          <li><span class="k">Education</span><span>MS Analytics (Northeastern), MBA Operations &amp; SCM</span></li>
+          <li><span class="k">Certified</span><span>Lean Six Sigma Green Belt</span></li>
+          <li><span class="k">Location</span><span>Boston, MA</span></li>
+          <li><span class="k">Looking for</span><span>Data analyst, BI analyst, business analyst, and supply chain analyst roles</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="wrap">
+      <div class="section-head reveal"><h2 id="exp-h">Experience</h2><p>Most recent first</p></div>
+      <ol class="timeline">
+        <li class="job reveal">
+          <div class="job-head"><h3>Dottir Labs</h3><span class="job-when">Jan 2026 to Apr 2026, Somerville, MA</span></div>
+          <p class="job-role">Analytics Software Engineering Intern</p>
+          <ul>
+            <li>Partnered with operations and research stakeholders to define reporting requirements across 40+ datasets, and delivered an automated pipeline that improved data quality for real-time monitoring.</li>
+            <li>Delivered a self-service dashboard giving stakeholders KPI visibility across field-deployed sensor data, replacing manual consolidation with automated batch processing.</li>
+            <li>Standardized a detection-threshold reporting framework with validation and fault-recovery controls, enabling automated recurring reporting and reducing manual analysis effort.</li>
+          </ul>
+        </li>
+        <li class="job reveal">
+          <div class="job-head"><h3>Indira Institute of Management</h3><span class="job-when">May 2022 to Jul 2022, Pune, India</span></div>
+          <p class="job-role">Logistics Analytics Intern</p>
+          <ul>
+            <li>Forecast Suez Canal shipping traffic in Power BI and built route maps from port coordinates, identifying alternate shipping routes to reduce transit cost and protect service levels.</li>
+            <li>Supported purchase order issuance, shipment tracking, vendor payments, and resolution of invoices on hold.</li>
+            <li>Presented cost and transportation insights to internal and external stakeholders through executive-ready visualizations.</li>
+            <li>Owned the engagement end to end, from problem framing and requirements through recommendation and handoff, under tight deadlines.</li>
+          </ul>
+          <figure class="shot job-fig" data-img="images/suez-routes.png" data-alt="Power BI route map of alternate shipping routes around the Suez Canal">
+            <svg class="ph" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect class="card" x="16" y="16" width="288" height="168" rx="8"/>
+              <path class="grid-l" d="M16 70h288M16 130h288M110 16v168M210 16v168"/>
+              <path class="ln" d="M40 150 C 90 120, 120 60, 170 70 S 250 40, 285 50"/>
+              <path class="ln2" d="M40 150 C 110 175, 200 180, 285 50"/>
+              <circle class="stop" cx="40" cy="150" r="5" fill="var(--route)"/>
+              <circle cx="285" cy="50" r="5" fill="var(--route)"/>
+            </svg>
+            <figcaption>Power BI route map</figcaption>
+          </figure>
+        </li>
+        <li class="job reveal">
+          <div class="job-head"><h3>Sahyadri Hospitals Pvt. Ltd.</h3><span class="job-when">Aug 2019 to Dec 2019, Pune, India</span></div>
+          <p class="job-role">Marketing Intern</p>
+          <ul>
+            <li>Coordinated cross-functional digital initiatives and campaign reporting in Advanced Excel, improving online visibility by 20%.</li>
+            <li>Ran voice-of-customer analysis and presented findings to leadership, recommending changes that drove a 10% service improvement.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects" aria-labelledby="proj-h">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 id="proj-h">Projects</h2>
+        <p>Code and notebooks on <a href="https://github.com/QuietSignal-hub" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+
+      <div class="filters reveal" role="group" aria-label="Filter projects by category">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter="forecasting" aria-pressed="false">Forecasting</button>
+        <button class="chip" type="button" data-filter="bi" aria-pressed="false">BI &amp; segmentation</button>
+        <button class="chip" type="button" data-filter="sql" aria-pressed="false">SQL &amp; data modeling</button>
+        <button class="chip" type="button" data-filter="ml" aria-pressed="false">Machine learning</button>
+      </div>
+      <p class="filter-status" id="filter-status" aria-live="polite">Showing all 5 projects</p>
+
+      <div class="grid">
+        <!-- 1. San Francisco forecasting (featured: closest match to operations roles) -->
+        <article class="project featured reveal" data-tags="forecasting ml">
+          <figure class="shot" data-img="images/sf-forecast.png" data-alt="Chart of forecast versus actual daily counts">
+            <svg class="ph" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect class="card" x="20" y="20" width="360" height="210" rx="10"/>
+              <path class="grid-l" d="M40 80h320M40 130h320M40 180h320"/>
+              <path class="ln" d="M40 170 L70 140 L100 155 L130 115 L160 128 L190 96 L220 112 L250 84 L280 101 L310 76 L340 90 L360 70"/>
+              <path class="ln2" d="M40 165 L70 148 L100 150 L130 122 L160 124 L190 104 L220 108 L250 92 L280 96 L310 84 L340 86 L360 78"/>
+            </svg>
+            <figcaption>Forecast vs. actual daily counts</figcaption>
+          </figure>
+          <div class="project-body">
+            <p class="project-meta">October 2025, graduate project</p>
+            <h3>Operational Forecasting of Daily Demand, San Francisco</h3>
+            <p class="summary">Forecast daily operational volume from 905K+ administrative records so district teams could plan short-term staffing and scheduling.</p>
+            <p class="metric"><strong>MAE 28</strong> and <strong>RMSE 35</strong> on daily counts</p>
+            <ul class="tools"><li>Python</li><li>scikit-learn</li><li>pandas</li><li>Time-series features</li></ul>
+            <details>
+              <summary>How I built it</summary>
+              <ul>
+                <li>Rebuilt timestamps and mapped district codes to turn 905K+ raw records into a clean operational dataset.</li>
+                <li>Built a lagged regression forecaster for daily counts, reaching MAE 28 and RMSE 35.</li>
+                <li>Modeled search likelihood with logistic regression (test ROC-AUC 0.765) and multiclass outcomes with a random forest.</li>
+                <li>Put one-hot encoding, median imputation, and QA checks into reproducible pipelines.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <!-- 2. CRM / RFM capstone -->
+        <article class="project reveal" data-tags="bi">
+          <figure class="shot" data-img="images/crm-powerbi.png" data-alt="Power BI report showing funding share by outreach segment">
+            <svg class="ph" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect class="card" x="16" y="16" width="288" height="168" rx="8"/>
+              <rect class="bar hi" x="44" y="54" width="44" height="112" rx="3"/>
+              <rect class="bar" x="104" y="122" width="44" height="44" rx="3"/>
+              <rect class="bar" x="164" y="140" width="44" height="26" rx="3"/>
+              <rect class="bar" x="224" y="152" width="44" height="14" rx="3"/>
+            </svg>
+            <figcaption>Power BI segment report</figcaption>
+          </figure>
+          <div class="project-body">
+            <p class="project-meta">June 2026, capstone for YSSL Inc.</p>
+            <h3>CRM Profiling &amp; Audience Segmentation</h3>
+            <p class="summary">Turned six public grant datasets into a CRM-ready table of recipient profiles, then segmented them so the outreach team knew where to focus.</p>
+            <p class="metric">The top <strong>19%</strong> of recipients received <strong>74%</strong> of funding</p>
+            <ul class="tools"><li>RFM segmentation</li><li>Power BI</li><li>Data quality</li><li>Governance</li></ul>
+            <details>
+              <summary>My part of the work</summary>
+              <ul>
+                <li>Profiled and cleaned six public sources and consolidated 65,002 inflation-adjusted (CPI) grant records from 2017 to 2024 into 24,350 recipient profiles.</li>
+                <li>Built RFM (recency, frequency, monetary) profiles and classified recipients into four outreach segments.</li>
+                <li>Wrote the data quality and governance checks, and built some of the Power BI report pages.</li>
+                <li>Designed the app's source-validation layer, which traces every compliance recommendation back to its government source.</li>
+              </ul>
+            </details>
+            <p class="team-note">Team of five. Teammates handled the industry and occupation enrichment (CIPO, NAICS, O*NET).</p>
+          </div>
+        </article>
+
+        <!-- 3. Pharmacy claims warehouse -->
+        <article class="project reveal" data-tags="sql">
+          <figure class="shot" data-img="images/pharmacy-schema.png" data-alt="Dimensional model diagram with one fact table and four dimension tables">
+            <svg class="ph" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect class="card" x="16" y="16" width="288" height="168" rx="8"/>
+              <path class="grid-l" d="M160 100 L76 52 M160 100 L244 52 M160 100 L76 148 M160 100 L244 148" style="stroke:var(--muted);opacity:.5"/>
+              <rect class="bar hi" x="124" y="80" width="72" height="40" rx="4"/>
+              <rect class="bar" x="44" y="36" width="64" height="32" rx="4"/>
+              <rect class="bar" x="212" y="36" width="64" height="32" rx="4"/>
+              <rect class="bar" x="44" y="132" width="64" height="32" rx="4"/>
+              <rect class="bar" x="212" y="132" width="64" height="32" rx="4"/>
+            </svg>
+            <figcaption>Dimensional model</figcaption>
+          </figure>
+          <div class="project-body">
+            <p class="project-meta">November 2025, graduate project</p>
+            <h3>Pharmacy Claims Data Warehouse &amp; Reporting</h3>
+            <p class="summary">Designed a MySQL dimensional model for raw pharmacy claims and wrote the reporting queries that run on top of it.</p>
+            <p class="metric"><strong>1</strong> fact table, <strong>4</strong> dimensions, normalized to <strong>3NF</strong></p>
+            <ul class="tools"><li>MySQL</li><li>Dimensional modeling</li><li>CTEs</li><li>Window functions</li></ul>
+            <details>
+              <summary>How I built it</summary>
+              <ul>
+                <li>Normalized raw claims data to third normal form (3NF) and designed the model with primary and foreign keys and referential-integrity rules.</li>
+                <li>Wrote SQL reporting on drug utilization, cost by age segment, and latest fill per member using CTEs and window functions.</li>
+                <li>Found and fixed empty fill records that were inflating utilization counts.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <!-- 4. Saint Paul predictive modeling -->
+        <article class="project reveal" data-tags="ml">
+          <div class="project-body">
+            <p class="project-meta">October 2025, graduate project</p>
+            <h3>Predictive Modeling of Stop Outcomes, Saint Paul, MN</h3>
+            <p class="summary">Compared four classifiers on 675K records and handled class imbalance so the model caught the rare outcomes, not just the common ones.</p>
+            <p class="metric"><strong>ROC-AUC 0.943</strong>, minority-class recall <strong>0.77</strong></p>
+            <ul class="tools"><li>Python</li><li>scikit-learn</li><li>XGBoost</li><li>SMOTE</li></ul>
+            <details>
+              <summary>How I built it</summary>
+              <ul>
+                <li>Cleaned 675,156 records and engineered time and demographic features in pandas and NumPy.</li>
+                <li>Built and compared logistic regression, random forest, XGBoost, and a stacked ensemble (MLP and XGBoost with a logistic regression meta-learner).</li>
+                <li>Used SMOTE for class imbalance, reaching 0.945 accuracy and ROC-AUC 0.943 with minority-class recall of 0.77.</li>
+                <li>Explained model behavior with feature importance and confusion matrices in Matplotlib and Seaborn.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <!-- 5. Transportation crash risk (team project) -->
+        <article class="project reveal" data-tags="ml">
+          <div class="project-body">
+            <p class="project-meta">Graduate team project</p>
+            <h3>Transportation Crash Risk Analysis</h3>
+            <p class="summary">Cleaned and explored crash records, then modeled severity and grouped crash patterns to show where risk concentrates.</p>
+            <p class="metric">Caught a label bug that split <strong>5</strong> severity levels into <strong>10</strong> classes</p>
+            <ul class="tools"><li>Python</li><li>SVM</li><li>K-means</li><li>EDA</li></ul>
+            <details>
+              <summary>My part of the work</summary>
+              <ul>
+                <li>Removed outliers with the IQR method, taking the data from 195,092 to 182,237 rows.</li>
+                <li>Ran the exploratory analysis and built the SVM classifier and K-means clustering.</li>
+                <li>Found a capitalization inconsistency that split five severity levels into ten classes, and fixed it before modeling.</li>
+              </ul>
+            </details>
+            <p class="team-note">Team project. Teammates built the gradient-boosting models.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills" aria-labelledby="skills-h">
+    <div class="wrap">
+      <div class="section-head reveal"><h2 id="skills-h">Skills</h2><p>Grouped by how I use them</p></div>
+      <div class="skills-grid reveal">
+        <div class="skill-group">
+          <h3>Analytics &amp; BI</h3>
+          <ul>
+            <li>Power BI</li>
+            <li>Tableau</li>
+            <li>Advanced Excel <small>PivotTables, Power Query</small></li>
+            <li>SQL <small>MySQL, SQLite</small></li>
+            <li>KPI reporting and dashboards</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Languages &amp; modeling</h3>
+          <ul>
+            <li>Python <small>pandas, NumPy, scikit-learn</small></li>
+            <li>R</li>
+            <li>Julia</li>
+            <li>Regression and classification</li>
+            <li>Time-series forecasting <small>lagged regression, ARIMA</small></li>
+            <li>Segmentation and clustering <small>RFM, K-means</small></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Operations &amp; supply chain</h3>
+          <ul>
+            <li>Forecasting and demand planning</li>
+            <li>Process optimization</li>
+            <li>Cost and variance analysis</li>
+            <li>Purchase orders and vendor processes</li>
+            <li>Lean Six Sigma</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Business analysis</h3>
+          <ul>
+            <li>Requirements gathering</li>
+            <li>Process mapping and gap analysis</li>
+            <li>KPI definition</li>
+            <li>UAT and Agile/Scrum</li>
+            <li>Stakeholder and executive presentations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EDUCATION ================= -->
+  <section id="education" aria-labelledby="edu-h">
+    <div class="wrap">
+      <div class="section-head reveal"><h2 id="edu-h">Education &amp; certification</h2></div>
+      <div class="edu-list reveal">
+        <div class="edu">
+          <h3>Northeastern University</h3><span class="when">June 2026</span>
+          <p>Master of Professional Studies in Analytics, Statistical Modeling</p><span class="when">Boston, MA</span>
+        </div>
+        <div class="edu">
+          <h3>Indira Institute of Management</h3><span class="when">August 2023</span>
+          <p>MBA, Operations &amp; Supply Chain Management, Business Analytics</p><span class="when">Pune, India</span>
+        </div>
+        <div class="edu">
+          <h3>Lean Six Sigma Green Belt</h3><span class="when"></span>
+          <p>Anexas</p><span class="when"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <div class="section-head reveal"><h2 id="contact-h">Contact</h2></div>
+      <div class="contact-grid reveal">
+        <div class="contact-intro">
+          <p>I'm looking for analyst roles in operations, supply chain, BI, and business analysis. If you're hiring, or want to talk about a project, send me a note.</p>
+          <ul class="contact-links">
+            <li><a data-email href="mailto:patil.jaye@northeastern.edu">patil.jaye@northeastern.edu</a></li>
+            <li><a href="https://www.linkedin.com/in/jayeshp-242e" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://github.com/QuietSignal-hub" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+        <form id="contact-form" novalidate>
+          <label>Your name<input name="name" type="text" autocomplete="name" required></label>
+          <label>Your email<input name="email" type="email" autocomplete="email" required></label>
+          <label>Message<textarea name="message" required></textarea></label>
+          <label class="hp" aria-hidden="true">Leave this empty<input name="_gotcha" tabindex="-1" autocomplete="off"></label>
+          <div><button class="btn btn-primary" type="submit" id="send-btn">Send message</button></div>
+          <p class="form-status" id="form-status" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Jayesh Patil, Boston, MA</span>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // ---------- SETTINGS: edit these ----------
+  var FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID"; // paste your Formspree form ID
+  var CONTACT_EMAIL = "patil.jaye@northeastern.edu";
+  // -------------------------------------------
+
+  var root = document.documentElement;
+
+  // Theme toggle
+  var toggle = document.getElementById('theme-toggle');
+  function effectiveTheme() {
+    var set = root.getAttribute('data-theme');
+    if (set) return set;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function syncToggle() {
+    var t = effectiveTheme();
+    root.setAttribute('data-theme', t);
+    toggle.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  syncToggle();
+  toggle.addEventListener('click', function () {
+    var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    syncToggle();
+  });
+
+  // Mobile menu
+  var menuBtn = document.getElementById('menu-btn');
+  var links = document.getElementById('nav-links');
+  menuBtn.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  links.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') { links.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+  });
+
+  // Nav border on scroll + active section link
+  var nav = document.querySelector('.nav');
+  window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+
+  // Swap in real images when the files exist
+  document.querySelectorAll('[data-img]').forEach(function (el) {
+    var img = new Image();
+    img.alt = el.getAttribute('data-alt') || '';
+    img.loading = 'lazy';
+    img.onload = function () {
+      el.appendChild(img);
+      var ph = el.querySelector('.ph'); if (ph) ph.remove();
+      var span = el.querySelector('span'); if (span) span.remove();
+    };
+    img.src = el.getAttribute('data-img');
+  });
+
+  // Route draw
+  var path = document.getElementById('route-path');
+  var route = document.getElementById('route');
+  try { path.style.setProperty('--len', path.getTotalLength()); } catch (e) {}
+  requestAnimationFrame(function () { route.classList.add('go'); });
+
+  // Reveal on scroll
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    reveals.forEach(function (el) { io.observe(el); });
+
+    var sectionLinks = {};
+    document.querySelectorAll('.nav-links a').forEach(function (a) { sectionLinks[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var a = sectionLinks[en.target.id];
+        if (a && en.isIntersecting) {
+          Object.keys(sectionLinks).forEach(function (k) { sectionLinks[k].classList.remove('active'); });
+          a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('main section[id]').forEach(function (s) { spy.observe(s); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // Project filters
+  var chips = document.querySelectorAll('.chip');
+  var projects = document.querySelectorAll('.project');
+  var status = document.getElementById('filter-status');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var f = chip.getAttribute('data-filter');
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      var shown = 0;
+      projects.forEach(function (p) {
+        var match = f === 'all' || p.getAttribute('data-tags').split(' ').indexOf(f) !== -1;
+        p.hidden = !match;
+        if (match) { shown++; p.classList.add('in'); }
+      });
+      status.textContent = f === 'all'
+        ? 'Showing all ' + shown + ' projects'
+        : 'Showing ' + shown + ' of ' + projects.length + ' projects in ' + chip.textContent.trim();
+    });
+  });
+
+  // Contact form
+  var form = document.getElementById('contact-form');
+  var formStatus = document.getElementById('form-status');
+  var sendBtn = document.getElementById('send-btn');
+  function say(msg, kind) { formStatus.textContent = msg; formStatus.className = 'form-status ' + (kind || ''); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = form.name.value.trim(), email = form.email.value.trim(), message = form.message.value.trim();
+    if (!name || !email || !message) { say('Fill in your name, email, and message to send.', 'err'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say('Check the email address. It should look like name@example.com.', 'err'); return; }
+
+    if (FORM_ENDPOINT.indexOf('YOUR_FORM_ID') !== -1) {
+      // Form service not connected yet: open the visitor's email app instead
+      var body = message + '\n\n' + name + '\n' + email;
+      window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent('Hello from ' + name) + '&body=' + encodeURIComponent(body);
+      say('Your email app should open with the message ready to send.', 'ok');
+      return;
+    }
+
+    sendBtn.disabled = true; say('Sending...');
+    fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function (r) {
+        if (r.ok) { form.reset(); say('Message sent. I\'ll reply to ' + email + ' soon.', 'ok'); }
+        else { say('The message didn\'t send. Email ' + CONTACT_EMAIL + ' directly instead.', 'err'); }
+      })
+      .catch(function () { say('The message didn\'t send because the connection dropped. Email ' + CONTACT_EMAIL + ' directly instead.', 'err'); })
+      .then(function () { sendBtn.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
